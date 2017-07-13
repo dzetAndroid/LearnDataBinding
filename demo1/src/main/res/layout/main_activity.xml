@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.zet.learndatabinding.event.MyHandlers"/>
+
+        <variable
+            name="task"
+            type="com.zet.learndatabinding.event.Task"/>
+
+        <variable
+            name="presenter"
+            type="com.zet.learndatabinding.event.Presenter"/>
+
+        <variable
+            name="isChecked"
+            type="Boolean"/>
+
+        <variable
+            name="user"
+            type="com.zet.learndatabinding.bean.User"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.firstName}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.lastName}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{handler::onClickFriend}"
+            android:text="click1"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> presenter.onSaveClick(task)}"
+            android:text="click2"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(view) -> presenter.onSaveClick(view, task)}"
+            android:text="click3"
+            android:textAllCaps="false"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(view) -> presenter.onCompletedChanged(view, task, isChecked)}"
+            android:textAllCaps="false"/>
+
+        <!--
+            click5 长按 则 打印日志
+            as 对 数据绑定的支持做的还不是很好，，，
+        -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onLongClick="@{(view) -> presenter.onLongClick(view, task)}"
+            android:text="click5"
+            android:textAllCaps="false"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(view) -> view.getVisibility() != view.GONE ? presenter.doSomething(view) : void}"
+            android:text="click6"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+</layout>
